@@ -17,7 +17,7 @@ services:
       - 6378:6379
   
   aligned-ui:
-    image: 'aligned-ml-ui'
+    image: 'matsmoll/aligned-ml-ui:latest'
     container_name: aligned-ml-ui
     command: python run.py serve
     environment:
@@ -36,7 +36,7 @@ services:
     
     
   aligned-server:
-    image: 'aligned'
+    image: 'matsmoll/aligned-ml:latest'
     container_name: aligned-ml
     environment:
       - REDIS_URL=redis://redis:6379
@@ -50,7 +50,7 @@ services:
       - ./server.py:/opt/app/server.py
     
   aligned-worker:
-    image: 'aligned'
+    image: 'matsmoll/aligned-ml:latest'
     restart: always
     container_name: aligned-ml-worker
     environment:
