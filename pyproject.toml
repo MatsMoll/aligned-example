@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "aligned-example"
+version = "0.1.0"
+description = "Example of how to use aligned"
+authors = ["Mats E. Mollestad <mats@mollestad.no>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+aligned = { path= "/Users/matsmollestad/Desktop/PersonalProj/aligned/", develop=true }
+httpx = "^0.23.0"
+xgboost = "^1.7.0"
+matplotlib = "^3.6.2"
+redis = "^4.4.0"
+fastapi = "^0.88.0"
+uvicorn = "^0.20.0"
+asgi-correlation-id = "^3.2.1"
+pandera = "^0.13.4"
+python-dotenv = "^0.21.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

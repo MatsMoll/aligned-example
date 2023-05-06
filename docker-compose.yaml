@@ -1,0 +1,64 @@
+version: '3'
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prom_data/:/prometheus/
+    command: --config.file=/prometheus/prometheus.yml
+
+  redis:
+    image: 'redis/redis-stack-server:latest'
+    container_name: redis_aligned
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - 6378:6379
+  
+  aligned-ui:
+    image: 'aligned-ml-ui'
+    container_name: aligned-ml-ui
+    command: python run.py serve
+    environment:
+      - PUBLIC_FEATURE_STORE_URL=http://aligned-server:8000
+      - PROMETHEUS_URL=http://prometheus:9090
+      - PUBLIC_MONITORING_REFRESH_INTERVAL=15000
+      - NAMESPACE=aligned
+    ports:
+      - 8002:5173/
+    volumes:
+      - ./feature-store.json:/opt/app/feature-store.json
+
+  # aligned-ground-truth:
+  #   image: 'aligned-ground-truth'
+  #   container_name: aligned-ground-truth
+    
+    
+  aligned-server:
+    image: 'aligned'
+    container_name: aligned-ml
+    environment:
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+    command: serve --host 0.0.0.0
+    ports:
+      - 8001:8000
+    volumes:
+      - ./feature-store.json:/opt/app/feature-store.json
+      - ./server.py:/opt/app/server.py
+    
+  aligned-worker:
+    image: 'aligned'
+    restart: always
+    container_name: aligned-ml-worker
+    environment:
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+    command: serve-worker --prune-unused-features true
+    volumes:
+      - ./feature-store.json:/opt/app/feature-store.json
+      - ./worker.py:/opt/app/worker.py
+    
