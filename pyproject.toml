@@ -16,6 +16,7 @@ uvicorn = "^0.20.0"
 asgi-correlation-id = "^3.2.1"
 pandera = "^0.13.4"
 python-dotenv = "^0.21.0"
+pydantic = "^1.10.7"
 
 [tool.poetry.dev-dependencies]
 

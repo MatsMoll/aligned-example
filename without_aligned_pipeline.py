@@ -1,10 +1,5 @@
 import polars as pl
 import pandas as pd
-from pandera import DataFrameSchema, Check, Column
-from pandera.errors import SchemaError
-from sklearn.model_selection import TimeSeriesSplit
-from sklearn.metrics import mean_squared_error, mean_absolute_error
-from xgboost import XGBRegressor
 from dotenv import load_dotenv
 from os import environ
 
@@ -82,6 +77,9 @@ def process_data(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def validate_data(df: pd.DataFrame) -> pd.DataFrame:
+    from pandera import DataFrameSchema, Check, Column
+    from pandera.errors import SchemaError
+
     schema = DataFrameSchema(columns={
         "dropoff_latitude": Column(float, nullable=True),
         "dropoff_longitude": Column(float, nullable=True),
@@ -117,6 +115,10 @@ def validate_data(df: pd.DataFrame) -> pd.DataFrame:
         )
 
 def main():
+    from sklearn.model_selection import TimeSeriesSplit
+    from sklearn.metrics import mean_squared_error, mean_absolute_error
+    from xgboost import XGBRegressor
+
     load_dotenv()
     data = load_data()
     data = process_data(data)

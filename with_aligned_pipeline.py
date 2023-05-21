@@ -1,11 +1,13 @@
+import numpy as np
 import asyncio
 from aligned import FileSource, PostgreSQLConfig
-from aligned.validation.pandera import PanderaValidator
-from sklearn.metrics import mean_squared_error, mean_absolute_error
-from xgboost import XGBRegressor
 from dotenv import load_dotenv
 
 async def main():
+    from aligned.validation.pandera import PanderaValidator
+    from sklearn.metrics import mean_squared_error, mean_absolute_error
+    from xgboost import XGBRegressor
+
     load_dotenv()
 
     # Loading all the compiled features descrived in the /examples folder

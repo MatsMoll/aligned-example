@@ -10,3 +10,7 @@ scrape_configs:
           - 'prometheus:9090'
           - 'aligned-worker:8000'
           - 'aligned-server:8000'
+          - 'aligned-ground-truth:8000'
+  - job_name: 'docker'
+    static_configs:
+      - targets: ['host.docker.internal:9323']

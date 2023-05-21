@@ -1,5 +1,6 @@
 version: '3'
 services:
+
   prometheus:
     image: prom/prometheus:latest
     ports:
@@ -7,6 +8,18 @@ services:
     volumes:
       - ./prom_data/:/prometheus/
     command: --config.file=/prometheus/prometheus.yml
+  
+  psql_app_db:
+    image: postgres:latest
+    container_name: psql_app_db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - 5430:5432
+    volumes:
+      - ./data/taxi.sql:/docker-entrypoint-initdb.d/taxi.sql
 
   redis:
     image: 'redis/redis-stack-server:latest'
@@ -30,10 +43,20 @@ services:
     volumes:
       - ./feature-store.json:/opt/app/feature-store.json
 
-  # aligned-ground-truth:
-  #   image: 'aligned-ground-truth'
-  #   container_name: aligned-ground-truth
-    
+  aligned-ground-truth:
+    image: 'aligned-monitoring'
+    restart: always
+    container_name: aligned-ground-truth
+    command: python -m aligned_monitoring.monitor
+    environment:
+      - MODEL_MONITORING_PORT=8000
+      - REDIS_URL=redis://redis:6379
+      - TAXI_DATABASE=postgres://postgres:postgres@psql_app_db:5432/postgres
+    depends_on:
+      - redis
+    volumes:
+      - ./feature-store.json:/opt/app/feature-store.json
+      - ./data/titanic.csv:/opt/app/data/titanic.csv
     
   aligned-server:
     image: 'matsmoll/aligned-ml:latest'

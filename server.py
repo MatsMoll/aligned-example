@@ -5,5 +5,5 @@ store = FileSource.json_at("feature-store.json")
 
 server = FeatureServer.from_reference(
     store,
-    RedisConfig.localhost().online_source()
+    RedisConfig.localhost()
 )
