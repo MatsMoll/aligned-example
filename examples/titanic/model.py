@@ -1,13 +1,8 @@
-from aligned import Model, PostgreSQLConfig, RedisConfig, FeatureView, Int32, EventTimestamp, Float, Timestamp, Int64, FileSource
+from aligned import Model, RedisConfig
 from examples.titanic.passenger import TitanicPassenger
 from examples.titanic.source import titanic_source
 
 redis = RedisConfig.localhost()
-
-    # This structure also makes it possible to input the target as an input to another model!!
-    # This is awesome
-    # Therefore, the model can be an PCA -> Scentence embedding etc.
-#  "A model that predicts if passengers will survive. A very basic model, but can do both batch and stream processing, while adding monitoring for better MLOps practices."
 
 class TitanicModel(Model):
     passenger = TitanicPassenger()

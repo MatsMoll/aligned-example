@@ -17,6 +17,8 @@ asgi-correlation-id = "^3.2.1"
 pandera = "^0.13.4"
 python-dotenv = "^0.21.0"
 pydantic = "^1.10.7"
+shap = "^0.41.0"
+streamlit = "^1.22.0"
 
 [tool.poetry.dev-dependencies]
 

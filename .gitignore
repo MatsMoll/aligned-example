@@ -4,6 +4,7 @@ prom_data/data
 # Dont check-in database folder
 .pg/*
 .DS_STORE
+*.bin
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

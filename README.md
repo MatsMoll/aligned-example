@@ -2,12 +2,25 @@
 
 This repo contains differnet examples of how to use the `aligned` package.
 
+## What and why should you use Aligned?
+
+Aligned's goal is to reduce the technical debt in ML Systems. 
+
+Aligned tries to address visiblity debt. Such debt makes it unclear how your system behave - Who writes, and who reads the data?
+Aligned also fixes technical debt like dead code, as dead features can be pruned. This is possible by collecting data lineage of the whole system.
+
+And much more! Read more about [debt in ML systems Sculley et al. [2015]](https://papers.nips.cc/paper/2015/file/86df7dcfd896fcaf2674f757a2463eba-Paper.pdf).
+
+
+Aligned is currently designed for low to medium sized companies. Therefore, Alinged only supports processing in Pandas and Polars, while Spark and Flink is not added, *yet*!
+
 ## Whats included here
 There are four differnet projects:
 - New York taxi model - which predicts the duration of a trip.
 - Titanic model - which predicts if a passenger survive.
 - Question similarity model - Predicts which topic a question belongs to using text embeddings and a vector database.
 - MNIST model - *beta feature* how to load raw data from a image model.
+- Credit Scoring - Almost the same as [Feast's Credit Scoring example](https://github.com/feast-dev/feast-aws-credit-scoring-tutorial/tree/main)
 
 ## Start the whole infrastructure
 Aligned can do a lot of differnet things. Therefore, to make it simple to explore differnet parts of the stack, a ´docker-compose.yaml` file has been created.

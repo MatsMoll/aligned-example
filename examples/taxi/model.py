@@ -1,4 +1,3 @@
-from aligned import AwsS3Config
 from aligned.compiler.model import Model
 from examples.sources import redis, taxi_db
 from examples.taxi.arrival import TaxiArrivals
