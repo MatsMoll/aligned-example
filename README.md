@@ -21,7 +21,7 @@ Aligned is currently designed for low to medium sized companies. Therefore, Alin
 ## Aligned Minimal Example
 
 To view how the whole infrastructure can be started with minimal code. View the [Aligned Minimal Example repo](https://github.com/MatsMoll/aligned-example-minimal).
-Here will the features in the repo be used as the source of truth, but only the infastructure will be started.
+Here will the features in this repo be used as the source of truth (aka. the `feature-store.json` file), but only the infastructure will be defined there.
 
 ## Whats included here
 There are four differnet projects:
@@ -42,6 +42,8 @@ This will setup the following infrastructure:
 - A Prometheus server that presents metrics about the feature server, and stream worker process - [Open Prometheus UI](http://localhost:9090)
 
 To start everything run `docker compose up`.
+
+![Aligned UI](images/aligned-ui.png)
 
 ## Compared training pipeline
 There will also be two different training pipelines that compute the same features, and perform roughly the same logic.
