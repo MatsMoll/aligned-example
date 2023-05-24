@@ -6,7 +6,7 @@ This repo contains differnet examples of how to use the `aligned` package.
 We have setup a [Discord](https://discord.gg/R7qB2tfxjs) where you can ask more questions and get help.
 [Join our community](https://discord.gg/R7qB2tfxjs)
 
-## What and why should you use Aligned?
+## Why should you use Aligned?
 
 Aligned's goal is to reduce the technical debt in ML Systems. 
 
@@ -17,6 +17,16 @@ And much more! Read more about [debt in ML systems Sculley et al. [2015]](https:
 
 
 Aligned is currently designed for low to medium sized companies. Therefore, Alinged only supports processing in Pandas and Polars, while Spark and Flink is not added, *yet*!
+
+### Aligned vs. Feature Stores
+Aligned can look fairly similar to a feature store like Feast and Tecton.
+Only Aligned offers a way to centralise pre-processing and transformations, compared to Feast. However, there is more.
+
+To make it a bit clearer, will it help to define any ML application as $f(X) \Rightarrow \hat y$. 
+
+Feast and Tecton mainly focus on the input features to our model $f(X)$. Therefore, they imporove the quality of the $X$, which Aligned also do with point in time joins, etc.
+
+However, Aligned also focus on tracking the relationship between $X$ and $\hat y$. Therefore, Aligned makes it possible to do real time model performance monitoring, create active learning datasets, and a lot more.
 
 ## Aligned Minimal Example
 
