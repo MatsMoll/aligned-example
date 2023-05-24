@@ -2,6 +2,10 @@
 
 This repo contains differnet examples of how to use the `aligned` package.
 
+## Join our Discord
+We have setup a [Discord](https://discord.gg/R7qB2tfxjs) where you can ask more questions and get help.
+[Join our community](https://discord.gg/R7qB2tfxjs)
+
 ## What and why should you use Aligned?
 
 Aligned's goal is to reduce the technical debt in ML Systems. 
@@ -13,6 +17,11 @@ And much more! Read more about [debt in ML systems Sculley et al. [2015]](https:
 
 
 Aligned is currently designed for low to medium sized companies. Therefore, Alinged only supports processing in Pandas and Polars, while Spark and Flink is not added, *yet*!
+
+## Aligned Minimal Example
+
+To view how the whole infrastructure can be started with minimal code. View the [Aligned Minimal Example repo](https://github.com/MatsMoll/aligned-example-minimal).
+Here will the features in the repo be used as the source of truth, but only the infastructure will be started.
 
 ## Whats included here
 There are four differnet projects:
