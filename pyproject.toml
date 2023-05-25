@@ -6,7 +6,7 @@ authors = ["Mats E. Mollestad <mats@mollestad.no>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-aligned = { path= "/Users/matsmollestad/Desktop/PersonalProj/aligned/", develop=true }
+aligned = "^0.0.15"
 httpx = "^0.23.0"
 xgboost = "^1.7.0"
 matplotlib = "^3.6.2"

@@ -1,6 +1,6 @@
 # Aligned Examples
 
-This repo contains different examples of how to use the `aligned` package.
+This repo contains different examples of how to use the [`aligned`](https://github.com/otovo/aligned) package.
 
 ## :speech_balloon: Join our Discord
 We have set up a [Discord](https://discord.gg/R7qB2tfxjs) where you can ask more questions and get help.
