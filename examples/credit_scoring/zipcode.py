@@ -1,6 +1,8 @@
-from aligned import FeatureView, String, Int64, EventTimestamp, FileSource, RedshiftSQLConfig
+from aligned import FeatureView, String, Int64, EventTimestamp, FileSource, RedshiftSQLConfig, KafkaConfig
 from datetime import timedelta
 import os 
+
+kafka_server = KafkaConfig("KAFKA_SERVER")
 
 if os.getenv("IS_PRODUCTION") != 'true':
     zipcode_source = FileSource.parquet_at("data/zipcode_table.parquet")
@@ -17,7 +19,8 @@ class Zipcode(FeatureView):
     metadata = FeatureView.metadata_with(
         name="zipcode_features",
         description="",
-        batch_source=zipcode_source
+        batch_source=zipcode_source,
+        stream_source=kafka_server.topic("zipcode_features")
     )
 
     zipcode = Int64().as_entity()

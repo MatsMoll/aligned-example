@@ -29,10 +29,12 @@ class Loan(FeatureView):
     person_home_ownership = String().accepted_values(ownership_values)
     person_home_ownership_ordinal = person_home_ownership.ordinal_categories(ownership_values)
 
-    person_emp_length = Float()
+    person_emp_length = Float().description(
+        "The number of months the person has been employed in the current job"
+    )
 
     loan_intent = String().accepted_values(loan_intent_values)
     loan_intent_ordinal = loan_intent.ordinal_categories(loan_intent_values)
 
     loan_amount = Int64()
-    loan_int_rate = Float()
+    loan_int_rate = Float().description("The interest rate of the loan")

@@ -1,7 +1,7 @@
 from aligned import Model
 from examples.credit_scoring.credit_history import CreditHistory
 from examples.credit_scoring.zipcode import Zipcode
-from examples.credit_scoring.laon import Loan
+from examples.credit_scoring.loan import Loan
 
 class CreditScoring(Model):
 
