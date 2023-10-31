@@ -1,14 +1,14 @@
-from aligned import FeatureView, String, Int64
+from aligned import String, Int64, feature_view
 from examples.sources import aligned_db, redis
 from aligned.schemas.text_vectoriser import TextVectoriserModel
 
-class DocumentationSnippet(FeatureView):
 
-    metadata = FeatureView.metadata_with(
-        name="documentation_snippet",
-        description="Features related to a snippet of the Aligned documentation",
-        batch_source=aligned_db
-    )
+@feature_view(
+    name="documentation_snippet",
+    description="Features related to a snippet of the Aligned documentation",
+    batch_source=aligned_db
+)
+class DocumentationSnippet:
 
     id = Int64().as_entity()
 

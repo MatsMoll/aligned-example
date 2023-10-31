@@ -44,6 +44,7 @@ services:
       - ./feature-store.json:/opt/app/feature-store.json
 
   aligned-server:
+    platform: linux/amd64
     image: 'matsmoll/aligned-ml:latest'
     container_name: aligned-ml-example
     environment:
@@ -58,6 +59,7 @@ services:
       - ./server.py:/opt/app/server.py
     
   aligned-worker:
+    platform: linux/amd64
     image: 'matsmoll/aligned-ml:latest'
     restart: always
     container_name: aligned-ml-worker-example

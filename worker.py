@@ -7,9 +7,9 @@ worker = (StreamWorker.from_reference(
         store,
         RedisConfig.localhost(),
     )
-    .metrics_port(8000)
-    .generate_active_learning_dataset()
+    .expose_metrics_at(8000)
     .read_from_timestamps({
-        "titanic": "$" # From now on and forward in Redis
+        "titanic": "$", # From now on and forward in Redis
+        "taxi_arrivals": "0-0", # From the begining of the stream
     })
 )

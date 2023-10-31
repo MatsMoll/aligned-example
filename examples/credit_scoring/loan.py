@@ -1,4 +1,4 @@
-from aligned import FeatureView, Int64, String, FileSource, EventTimestamp, Bool, Float
+from aligned import feature_view, Int64, String, FileSource, EventTimestamp, Bool, Float
 
 loan_source = FileSource.parquet_at("data/loan_table.parquet", mapping_keys={
     "loan_amnt": "loan_amount"
@@ -9,13 +9,13 @@ loan_intent_values = [
     "PERSONAL", "EDUCATION", 'MEDICAL', 'VENTURE', 'HOMEIMPROVEMENT', 'DEBTCONSOLIDATION'
 ]
 
-class Loan(FeatureView):
- 
-    metadata = FeatureView.metadata_with(
-        name="loan",
-        description="The granted loans",
-        batch_source=loan_source
-    )
+
+@feature_view(
+    name="loan",
+    description="The granted loans",
+    batch_source=loan_source
+)
+class Loan:
 
     loan_id = String().as_entity()
 

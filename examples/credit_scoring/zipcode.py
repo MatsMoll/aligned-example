@@ -1,4 +1,4 @@
-from aligned import FeatureView, String, Int64, EventTimestamp, FileSource, RedshiftSQLConfig, KafkaConfig
+from aligned import String, Int64, EventTimestamp, FileSource, RedshiftSQLConfig, KafkaConfig, feature_view
 from datetime import timedelta
 import os 
 
@@ -14,14 +14,13 @@ else:
     credit_history_source = redshift_config.table("credit_history")
 
 
-class Zipcode(FeatureView):
-
-    metadata = FeatureView.metadata_with(
-        name="zipcode_features",
-        description="",
-        batch_source=zipcode_source,
-        stream_source=kafka_server.topic("zipcode_features")
-    )
+@feature_view(
+    name="zipcode_features",
+    description="",
+    batch_source=zipcode_source,
+    # stream_source=kafka_server.topic("zipcode_features")
+)
+class Zipcode:
 
     zipcode = Int64().as_entity()
 

@@ -4,6 +4,14 @@ from dotenv import load_dotenv
 from os import environ
 
 def load_data() -> pd.DataFrame:
+    df = pd.read_sql_query("SELECT id, pickup_latitude, dropoff_latitude, pickuped_at FROM location_table;")
+
+    df["lat_diff"] = (df["pickup_latitude"] - df["dropoff_latitude"]) ** 2
+    df["long_diff"] = (df["pickup_longitude"] - df["dropoff_longitude"]) ** 2
+    df["travel_distance"] = (df["lat_diff"] + df["long_diff"]) ** 0.5
+
+    # Day of the week
+    df["day_of_week"] = df["pickuped_at"].dt.day
     return pl.read_sql(
         """
 WITH entities (
@@ -126,14 +134,17 @@ def main():
     
     expected_features = [
         "day_of_week",
-        "mean_passenger_change", 
-        "passenger_20_min_count", 
-        "passenger_20_min_mean", 
-        "passenger_20_min_variance", 
+        "travel_distance"
+
         "passenger_hour_count", 
         "passenger_hour_mean", 
         "passenger_hour_variance", 
-        "travel_distance"
+
+        "passenger_20_min_count", 
+        "passenger_20_min_mean", 
+        "passenger_20_min_variance", 
+
+        "mean_passenger_change", 
     ]
     target_feature = ["duration"]
 

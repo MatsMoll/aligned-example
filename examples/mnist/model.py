@@ -1,16 +1,14 @@
 from examples.mnist.features import MnistFeature
-from aligned import Model
+from aligned import model_contract
 
-class Mnist(Model):
+data = MnistFeature()
 
-    data = MnistFeature()
-
-    metadata = Model.metadata_with(
-        "mnist",
-        description="A model that detects handwritten images",
-        features=[
-            data.grayscale_image
-        ]
-    )
-
-    number = data.label.as_classification_target()
+@model_contract(
+    "mnist",
+    description="A model that detects handwritten images",
+    features=[
+        data.grayscale_image
+    ]
+)
+class Mnist:
+    number = data.label.as_classification_label()

@@ -1,19 +1,18 @@
-from aligned import FeatureView, String, Int32, PostgreSQLConfig, RedisConfig, Int64, Model
+from aligned import feature_view, model_contract, String, Int32, PostgreSQLConfig, RedisConfig, Int64, ModelContract
 from aligned.schemas.text_vectoriser import TextVectoriserModel
 
 redis_cluster = RedisConfig.localhost()
 postgres = PostgreSQLConfig("QUESTION_DATABASE")
 
 
-class Question(FeatureView):
-
-    metadata = FeatureView.metadata_with(
-        name="question",
-        description="Features related to a question",
-        batch_source=postgres.table("Task", mapping_keys={
-            "topicID": "topic_id",
-        })
-    )
+@feature_view(
+    name="question",
+    description="Features related to a question",
+    batch_source=postgres.table("Task", mapping_keys={
+        "topicID": "topic_id",
+    })
+)
+class Question:
 
     id = Int64().as_entity()
 
@@ -33,16 +32,15 @@ class Question(FeatureView):
 
 
 
-class QuestionSubtopicModel(Model):
+question = Question()
 
-    question = Question()
+@model_contract(
+    "question_subtopic",
+    description="Predicts the expected subtopic, by comparing agains similar models",
+    features=[
+        question.question_embedding
+    ],
+)
+class QuestionSubtopicModel:
 
-    metadata = Model.metadata_with(
-        "question_subtopic",
-        description="Predicts the expected subtopic, by comparing agains similar models",
-        features=[
-            question.question_embedding
-        ],
-    )
-
-    predicted_id = question.topic_id.as_classification_target()
+    predicted_id = question.topic_id.as_classification_label()

@@ -1,29 +1,27 @@
-from aligned import FeatureView, EventTimestamp, Float, UUID, Int32
+from aligned import feature_view, EventTimestamp, Float, UUID, Int32, combined_feature_view
 from aligned.compiler.feature_factory import Coordinate
 from examples.sources import redis, taxi_db
 
 
-class TaxiDepartures(FeatureView):
+@feature_view(
+    name="taxi_departures",
+    description="Features related to the departure of a taxi ride",
 
-    metadata = FeatureView.metadata_with(
-        name="taxi_departures",
-        description="Features related to the departure of a taxi ride",
-
-        batch_source=taxi_db.table("departures"),
-        stream_source=redis.stream("departures"),
-    )
-
+    batch_source=taxi_db.table("departures"),
+    stream_source=redis.stream("departures"),
+)
+class TaxiDepartures:
     trip_id = UUID().as_entity()
 
     pickuped_at = EventTimestamp()
 
     number_of_passengers = Int32()
 
-    dropoff_latitude = Float()
-    dropoff_longitude = Float()
+    dropoff_latitude = Float().is_required()
+    dropoff_longitude = Float().is_required()
 
-    pickup_latitude = Float()
-    pickup_longitude = Float()
+    pickup_latitude = Float().is_required()
+    pickup_longitude = Float().is_required()
 
     dropoff_coordinate = Coordinate(dropoff_latitude, dropoff_longitude)
     pickup_coordinate = Coordinate(pickup_latitude, pickup_longitude)
@@ -34,17 +32,16 @@ class TaxiDepartures(FeatureView):
 
 
 
-class TaxiVendor(FeatureView):
+@feature_view(
+    name="taxi_vendor",
+    description="Features realated to the taxi vendor",
 
-    metadata = FeatureView.metadata_with(
-        name="taxi_vendor",
-        description="Features realated to the taxi vendor",
-
-        batch_source=taxi_db.table("departures", mapping_keys={
-            "passenger_count": "number_of_passengers"
-        }),
-        stream_source=redis.stream("departures"),
-    )
+    batch_source=taxi_db.table("departures", mapping_keys={
+        "passenger_count": "number_of_passengers"
+    }),
+    stream_source=redis.stream("departures"),
+)
+class TaxiVendor:
 
     vendor_id = Int32().as_entity()
     pickuped_at = EventTimestamp()

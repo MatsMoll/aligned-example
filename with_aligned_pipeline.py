@@ -25,8 +25,10 @@ async def main():
         .with_target()\
         .features_for(entites)\
         .validate(PanderaValidator())\
-        .train_set(0.8)\
         .to_pandas()
+
+    X = dataset.input
+    y = dataset.labels
     
     model = XGBRegressor()
     model.fit(dataset.train_input, dataset.train_target)
@@ -34,6 +36,16 @@ async def main():
     predictions = model.predict(dataset.test_input)
     print(f"Mean absolute error: {mean_absolute_error(dataset.test_target, predictions)}")
     print(f"Mean squared error: {mean_squared_error(dataset.test_target, predictions)}")
+
+
+    psql_config = PostgreSQLConfig(env_var='OTOVO_CLOUD_DB_URL')
+    views = store.views_with_config(psql_config)
+    validation = await validate_sources_in(views)
+    out_of_sync = [name for name, valid in validation.items() if not valid]
+
+    assert len(out_of_sync) == 0, f"""Some views are out of sync: {out_of_sync}.
+    Either contact #product-insights so we can update down stream systems, or revert the changes."""
+
 
 if __name__ == "__main__":
     asyncio.run(main())

@@ -1,20 +1,19 @@
 from examples.titanic.source import redis, titanic_source
-from aligned import FeatureView, FeatureViewMetadata, Entity
+from aligned import Entity, feature_view
 from aligned import Int32, Bool, Float, String
 from aligned.schemas.record_coders import JsonRecordCoder
 from math import floor, ceil
 import polars as pl
 
-class TitanicPassenger(FeatureView):
-    
-    metadata = FeatureViewMetadata(
-        name="titanic",
-        description="Some features from the titanic dataset",
-        batch_source=titanic_source,
-        stream_source=redis.stream("titanic").with_coder(
-            JsonRecordCoder(key="json_data")
-        )
+@feature_view(
+    name="titanic",
+    description="Some features from the titanic dataset",
+    batch_source=titanic_source,
+    stream_source=redis.stream("titanic").with_coder(
+        JsonRecordCoder(key="json_data")
     )
+)
+class TitanicPassenger:
     
     passenger_id = Entity(dtype=Int32())
 
