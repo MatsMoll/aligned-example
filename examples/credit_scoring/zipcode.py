@@ -17,7 +17,7 @@ else:
 @feature_view(
     name="zipcode_features",
     description="",
-    batch_source=zipcode_source,
+    source=zipcode_source,
     # stream_source=kafka_server.topic("zipcode_features")
 )
 class Zipcode:

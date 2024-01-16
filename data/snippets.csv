@@ -47,7 +47,7 @@ class TitanicPassenger(FeatureView):
     metadata = FeatureView.metadata_with(
         name=""passenger"",
         description=""Some features from the titanic dataset"",
-        batch_source=FileSource.csv_at(""titanic.csv""),
+        source=FileSource.csv_at(""titanic.csv""),
         stream_source=HttpStreamSource(topic_name=""titanic"")
     )
 
@@ -86,7 +86,7 @@ class TitanicPassenger(FeatureView):
     metadata = FeatureView.metadata_with(
         name=""passenger"",
         description=""Some features from the titanic dataset"",
-        batch_source=my_db.table(
+        source=my_db.table(
             ""passenger"",
             mapping_keys={
                 ""Passenger_Id"": ""passenger_id""
@@ -112,7 +112,7 @@ class SomeFeatures(FeatureView):
     metadata = FeatureViewMetadata(
         name=""some_features"",
         description=""..."",
-        batch_source=my_db.table(""local_features"")
+        source=my_db.table(""local_features"")
     )
 
     # Some features
@@ -123,7 +123,7 @@ class AwsFeatures(FeatureView):
     metadata = FeatureViewMetadata(
         name=""aws"",
         description=""..."",
-        batch_source=aws_bucket.file_at(""path/to/file.parquet"")
+        source=aws_bucket.file_at(""path/to/file.parquet"")
     )
 
     # Some features
@@ -1875,8 +1875,8 @@ T = TypeVar('T')"
         features: list[FeatureReferencable],
         contacts: list[str] | None = None,
         tags: dict[str, str] | None = None,
-        predictions_source: BatchDataSource | None = None,
-        predictions_stream: StreamDataSource | None = None,
+        prediction_source: BatchDataSource | None = None,
+        prediction_stream: StreamDataSource | None = None,
         dataset_folder: Folder | None = None,
     ) -> ModelMetedata:
         return ModelMetedata(

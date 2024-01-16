@@ -6,7 +6,7 @@ from aligned.schemas.text_vectoriser import TextVectoriserModel
 @feature_view(
     name="documentation_snippet",
     description="Features related to a snippet of the Aligned documentation",
-    batch_source=aligned_db
+    source=aligned_db
 )
 class DocumentationSnippet:
 

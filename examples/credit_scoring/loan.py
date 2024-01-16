@@ -13,7 +13,7 @@ loan_intent_values = [
 @feature_view(
     name="loan",
     description="The granted loans",
-    batch_source=loan_source
+    source=loan_source
 )
 class Loan:
 

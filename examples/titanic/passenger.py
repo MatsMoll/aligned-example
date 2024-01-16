@@ -1,5 +1,5 @@
 from examples.titanic.source import redis, titanic_source
-from aligned import Entity, feature_view
+from aligned import feature_view
 from aligned import Int32, Bool, Float, String
 from aligned.schemas.record_coders import JsonRecordCoder
 from math import floor, ceil
@@ -8,19 +8,16 @@ import polars as pl
 @feature_view(
     name="titanic",
     description="Some features from the titanic dataset",
-    batch_source=titanic_source,
+    source=titanic_source,
     stream_source=redis.stream("titanic").with_coder(
         JsonRecordCoder(key="json_data")
     )
 )
 class TitanicPassenger:
     
-    passenger_id = Entity(dtype=Int32())
+    passenger_id = Int32().as_entity()
 
-    # created_at = EventTimestamp()
-    
     age = Float()
-
     
     sibsp = Int32().description("Number of siblings on titanic")
     has_siblings = sibsp > 0

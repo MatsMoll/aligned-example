@@ -6,7 +6,7 @@ authors = ["Mats E. Mollestad <mats@mollestad.no>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-aligned = { version = "^0.0.33", extras=["server"]}
+aligned = { version = "^0.0.62", extras=["server"]}
 httpx = "^0.23.0"
 xgboost = "^1.7.0"
 matplotlib = "^3.6.2"

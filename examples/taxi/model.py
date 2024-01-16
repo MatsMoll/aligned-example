@@ -26,10 +26,10 @@ vendor = TaxiVendor()
         vendor.mean_passenger_change,
     ],
 
-    predictions_source=taxi_db.table("predicted_trips", mapping_keys={
+    prediction_source=taxi_db.table("predicted_trips", mapping_keys={
         "predicted_trips": "predicted_duration"
     }),
-    predictions_stream=redis.stream("predicted_trips"),
+    prediction_stream=redis.stream("predicted_trips"),
 )
 class TaxiModel:
 

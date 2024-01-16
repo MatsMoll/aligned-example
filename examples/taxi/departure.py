@@ -7,7 +7,7 @@ from examples.sources import redis, taxi_db
     name="taxi_departures",
     description="Features related to the departure of a taxi ride",
 
-    batch_source=taxi_db.table("departures"),
+    source=taxi_db.table("departures"),
     stream_source=redis.stream("departures"),
 )
 class TaxiDepartures:
@@ -36,7 +36,7 @@ class TaxiDepartures:
     name="taxi_vendor",
     description="Features realated to the taxi vendor",
 
-    batch_source=taxi_db.table("departures", mapping_keys={
+    source=taxi_db.table("departures", mapping_keys={
         "passenger_count": "number_of_passengers"
     }),
     stream_source=redis.stream("departures"),

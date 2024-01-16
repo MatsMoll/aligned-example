@@ -8,10 +8,10 @@ credit = CreditHistory()
 zipcode = Zipcode()
 loan = Loan()
 
-Above5kCreditDebt = CreditHistory.with_filter(
-    named="above_5k_credit_history",
+Above5kCreditDebt = CreditHistory.filter(
+    name="above_5k_credit_history",
     where=lambda view: view.has_above_5k_credit_debt,
-    stored_at=FileSource.parquet_at("above_5k_credit_debt.parquet")
+    materialize_source=FileSource.parquet_at("above_5k_credit_debt.parquet")
 )
 
 above_credit = Above5kCreditDebt()

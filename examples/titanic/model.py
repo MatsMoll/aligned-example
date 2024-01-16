@@ -1,4 +1,4 @@
-from aligned import RedisConfig, model_contract
+from aligned import RedisConfig, model_contract, Int32
 from examples.titanic.passenger import TitanicPassenger
 from examples.titanic.source import titanic_source
 
@@ -9,7 +9,7 @@ passenger = TitanicPassenger()
 @model_contract(
     name="titanic",
     description="A model predicting if a passenger will survive on titanic",
-    predictions_source=titanic_source,
+    prediction_source=titanic_source,
     features=[
         passenger.constant_filled_age,
         passenger.is_male,
@@ -18,6 +18,8 @@ passenger = TitanicPassenger()
     ],
 )
 class TitanicModel:
+
+    passenger_id = Int32().as_entity()
 
     # A condition be needed, and where to sink the ground truth 
     # Since the ground truth is a part of the feature view

@@ -1,4 +1,4 @@
-from aligned import feature_view, model_contract, String, Int32, PostgreSQLConfig, RedisConfig, Int64, ModelContract
+from aligned import feature_view, model_contract, String, Int32, PostgreSQLConfig, RedisConfig, Int64
 from aligned.schemas.text_vectoriser import TextVectoriserModel
 
 redis_cluster = RedisConfig.localhost()
@@ -8,7 +8,7 @@ postgres = PostgreSQLConfig("QUESTION_DATABASE")
 @feature_view(
     name="question",
     description="Features related to a question",
-    batch_source=postgres.table("Task", mapping_keys={
+    source=postgres.table("Task", mapping_keys={
         "topicID": "topic_id",
     })
 )

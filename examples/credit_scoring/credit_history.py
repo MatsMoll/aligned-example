@@ -1,4 +1,4 @@
-from aligned import FeatureView, String, EventTimestamp, Int64, FileSource, RedshiftSQLConfig, feature_view
+from aligned import String, EventTimestamp, Int64, FileSource, RedshiftSQLConfig, feature_view
 from datetime import timedelta
 import os
 
@@ -12,7 +12,7 @@ else:
 @feature_view(
     name="credit_history",
     description="",
-    batch_source=credit_history_source
+    source=credit_history_source
 )
 class CreditHistory:
     dob_ssn = String().as_entity().description("Date of birth and last four digits of social security number")

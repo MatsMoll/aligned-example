@@ -4,7 +4,7 @@ from examples.sources import redis, taxi_db
 @feature_view(
     name="taxi_arrivals",
     description="The arrivals in the taxi data",
-    batch_source=taxi_db.table("arrivals"),
+    source=taxi_db.table("arrivals"),
     stream_source=redis.stream("arrivals")
 )
 class TaxiArrivals:
