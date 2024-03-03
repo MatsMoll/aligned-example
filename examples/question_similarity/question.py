@@ -1,5 +1,5 @@
 from aligned import feature_view, model_contract, String, Int32, PostgreSQLConfig, RedisConfig, Int64
-from aligned.schemas.text_vectoriser import TextVectoriserModel
+from aligned.schemas.text_vectoriser import EmbeddingModel
 
 redis_cluster = RedisConfig.localhost()
 postgres = PostgreSQLConfig("QUESTION_DATABASE")
@@ -23,7 +23,7 @@ class Question:
     full_question = description.append(question)
 
     question_embedding = full_question.embedding(
-        TextVectoriserModel.huggingface("all-MiniLM-L6-v2")
+        EmbeddingModel.huggingface("all-MiniLM-L6-v2")
     ).indexed(
         storage=redis_cluster.index("question_embedding_index"),
         metadata=[topic_id],

@@ -1,6 +1,6 @@
 from aligned import String, Int64, feature_view
 from examples.sources import aligned_db, redis
-from aligned.schemas.text_vectoriser import TextVectoriserModel
+from aligned.schemas.text_vectoriser import EmbeddingModel
 
 
 @feature_view(
@@ -20,7 +20,7 @@ class DocumentationSnippet:
     combined_snippet = snippet.append("\n\nSource file: ").append(source_file)
 
     snippet_embedding = combined_snippet.embedding(
-        TextVectoriserModel.huggingface("all-MiniLM-L6-v2")
+        EmbeddingModel.huggingface("all-MiniLM-L6-v2")
     ).indexed(
         redis.index(
             "doc_index",
