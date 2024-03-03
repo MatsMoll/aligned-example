@@ -1,12 +1,13 @@
 from aligned import String, Int64, EventTimestamp, FileSource, RedshiftSQLConfig, KafkaConfig, feature_view
+from examples.sources import data_dir
 from datetime import timedelta
 import os 
 
 kafka_server = KafkaConfig("KAFKA_SERVER")
 
 if os.getenv("IS_PRODUCTION") != 'true':
-    zipcode_source = FileSource.parquet_at("data/zipcode_table.parquet")
-    credit_history_source = FileSource.parquet_at("data/credit_history.parquet")
+    zipcode_source = data_dir.parquet_at("zipcode_table.parquet")
+    credit_history_source = data_dir.parquet_at("credit_history.parquet")
 else:
     redshift_config = RedshiftSQLConfig(env_var="CREDIT_DB_URL", schema="spectrum")
 

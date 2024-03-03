@@ -1,9 +1,10 @@
-from aligned import String, EventTimestamp, Int64, FileSource, RedshiftSQLConfig, feature_view
+from aligned import String, EventTimestamp, Int64, RedshiftSQLConfig, feature_view
 from datetime import timedelta
+from examples.sources import data_dir
 import os
 
 if os.getenv("IS_PRODUCTION") != 'true':
-    credit_history_source = FileSource.parquet_at("data/credit_history.parquet")
+    credit_history_source = data_dir.parquet_at("credit_history.parquet")
 else:
     redshift_config = RedshiftSQLConfig(env_var="CREDIT_DB_URL", schema="spectrum")
     credit_history_source = redshift_config.table("credit_history")

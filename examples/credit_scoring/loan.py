@@ -1,6 +1,7 @@
-from aligned import feature_view, Int64, String, FileSource, EventTimestamp, Bool, Float
+from aligned import feature_view, Int64, String, EventTimestamp, Bool, Float
+from examples.sources import data_dir
 
-loan_source = FileSource.parquet_at("data/loan_table.parquet", mapping_keys={
+loan_source = data_dir.parquet_at("loan_table.parquet", mapping_keys={
     "loan_amnt": "loan_amount"
 })
 
