@@ -9,7 +9,9 @@ passenger = TitanicPassenger()
 @model_contract(
     name="titanic",
     description="A model predicting if a passenger will survive on titanic",
-    prediction_source=titanic_source,
+    prediction_source=titanic_source.with_renames({
+        "survived": "will_survive"
+    }),
     features=[
         passenger.constant_filled_age,
         passenger.is_male,
@@ -23,7 +25,7 @@ class TitanicModel:
 
     # A condition be needed, and where to sink the ground truth 
     # Since the ground truth is a part of the feature view
-    survived = passenger.survived.as_classification_label()\
+    will_survive = passenger.survived.as_classification_label()\
         .send_ground_truth_event(
             when=passenger.survived.is_not_null(),
             sink_to=redis.stream(topic="passenger_ground_truth"),

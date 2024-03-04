@@ -1,4 +1,4 @@
-from aligned import FileSource, Int32, model_contract
+from aligned import FileSource, Int32, model_contract, String
 from examples.credit_scoring.credit_history import CreditHistory
 from examples.credit_scoring.zipcode import Zipcode
 from examples.credit_scoring.loan import Loan
@@ -46,6 +46,7 @@ above_credit = Above5kCreditDebt()
     ],
 )
 class CreditScoring:
+    loan_id = String().as_entity()
 
     prediction_version = Int32().as_model_version()
 
