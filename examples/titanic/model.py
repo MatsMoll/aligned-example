@@ -10,7 +10,8 @@ passenger = TitanicPassenger()
     name="titanic",
     description="A model predicting if a passenger will survive on titanic",
     prediction_source=titanic_source.with_renames({
-        "survived": "will_survive"
+        "Survived": "will_survive",
+        "PassengerId": "passenger_id"
     }),
     features=[
         passenger.constant_filled_age,
