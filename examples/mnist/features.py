@@ -4,7 +4,7 @@ from examples.mnist.source import mnist_source
 
 @feature_view(
     "mnist",
-    source= mnist_source,
+    source=mnist_source,
     description="Features desrcribing the mnist features",
 )
 class MnistFeature:
